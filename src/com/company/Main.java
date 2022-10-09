@@ -3,11 +3,7 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-        CardGame cardGame = new CardGame();
-
-        cardGame.shuffleDeck();
-        cardGame.getDeck();
-
-
+        Snap snap = new Snap();
+        snap.playGame();
     }
 }

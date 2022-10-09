@@ -30,7 +30,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return suit + symbol + " - value: " + value + "\n";
+        return suit + " " + symbol;
     }
 
 

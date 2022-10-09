@@ -5,13 +5,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
-public class CardGame {
+public class CardGame{
 
-    private final ArrayList<Card> deckOfCards;
+    private ArrayList<Card> deckOfCards;
+    public static final String RESET = "\u001B[0m";
+    public static final String GREEN = "\u001B[32m";
 
     public CardGame() {
         deckOfCards = new ArrayList<>(52);
-
         for (int i = 0; i <= 3; i++) {
             for (int j = 0; j <= 12; j++) {
                 deckOfCards.add(new Card(i, j, j + 2));
@@ -19,33 +20,41 @@ public class CardGame {
         }
     }
 
-    // Display all cards
-    public void getDeck() {
-        System.out.println(deckOfCards.toString()
+    // DISPLAY ALL CARDS
+    public void displayDeck(ArrayList<Card> deckOfCards) {
+        System.out.print(GREEN + deckOfCards.toString()
                 .replace("[", "")
                 .replace("]", "")
-                .replace(", ", ""));
+                .replace(",", "") + RESET);
     }
 
-    // Deal the card on Top
-    public Card dealCard() {
-        Card cardOnTop = deckOfCards.get(deckOfCards.size() - 1);
-        deckOfCards.remove(deckOfCards.size() - 1);
+    // DEAL THE CARD ON THE TOP
+    public Card dealCard(ArrayList<Card> deckOfCards, ArrayList<Card> usedCards) {
+        Card cardOnTop = deckOfCards.get(0);
+        usedCards.add(cardOnTop);
+        deckOfCards.remove(0);
         return cardOnTop;
     }
 
+    // SHUFFLES & DECK SORTING
     public ArrayList<Card> sortDeckInNumberOrder() {
         Collections.sort(deckOfCards, Comparator.comparing(Card::getValue));
         return deckOfCards;
     }
-
     public ArrayList<Card> sortDeckIntoSuits() {
         Collections.sort(deckOfCards, Comparator.comparing(Card::getSuit));
         return deckOfCards;
     }
 
-    public ArrayList<Card> shuffleDeck(){
+    public void shuffleDeck(){
         Collections.shuffle(deckOfCards, new Random());
+    }
+
+    public ArrayList<Card> getDeckOfCards() {
         return deckOfCards;
+    }
+
+    public void setDeckOfCards(ArrayList<Card> deckOfCards) {
+        this.deckOfCards = deckOfCards;
     }
 }
