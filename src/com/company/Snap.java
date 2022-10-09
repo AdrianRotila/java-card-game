@@ -63,12 +63,20 @@ public class Snap extends CardGame {
         }
     }
 
+    private void nameCheck(){
+        while(playerOne.getName().equals(playerTwo.getName())) {
+            System.out.println("Names cannot be the same, please choose another name");
+            System.out.print("      -->  Insert Second Player's name: ");
+            playerTwo.setName(scanner.nextLine());
+        }
+    }
 
     private void createPlayers() {
         System.out.print("      -->  Insert First Player's name: ");
         playerOne = new Player(scanner.nextLine(), new ArrayList<>(getDeckOfCards().subList(0, getDeckOfCards().size() / 2)), new ArrayList<>());
         System.out.print("      -->  Insert Second Player's name: ");
         playerTwo = new Player(scanner.nextLine(), new ArrayList<>(getDeckOfCards().subList(getDeckOfCards().size() / 2, getDeckOfCards().size())), new ArrayList<>());
+        nameCheck();
     }
 
     private void changePlayer() {

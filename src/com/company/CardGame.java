@@ -38,11 +38,11 @@ public class CardGame{
 
     // SHUFFLES & DECK SORTING
     public ArrayList<Card> sortDeckInNumberOrder() {
-        Collections.sort(deckOfCards, Comparator.comparing(Card::getValue));
+        deckOfCards.sort(Comparator.comparing(Card::getValue));
         return deckOfCards;
     }
     public ArrayList<Card> sortDeckIntoSuits() {
-        Collections.sort(deckOfCards, Comparator.comparing(Card::getSuit));
+        deckOfCards.sort(Comparator.comparing(Card::getSuit));
         return deckOfCards;
     }
 
