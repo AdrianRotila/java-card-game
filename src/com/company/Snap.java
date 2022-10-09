@@ -25,7 +25,7 @@ public class Snap extends CardGame {
         shuffleDeck();
         createPlayers();
 
-        System.out.print("\n-----------------------------------------------------    " + RED + playerOne.getName() + " press ENTER to start the game!" + RESET + "   -----------------------------------------------------\n");
+        display.pressEnterMessage(playerOne.getName());
         currentPlayer = playerOne.getName();
 
         while (active) {
@@ -34,23 +34,13 @@ public class Snap extends CardGame {
 
             // DISPLAY EVERY DEALT CARD WITH THE REMAINING NUMBER OF CARDS
             System.out.print("\n -> " + YELLOW + currentPlayer + RESET + " you have " +
-                  RED + (currentPlayer.equals(playerOne.getName()) ?
-                            playerOne.getPlayerDeck().size() :
-                            playerTwo.getPlayerDeck().size())
+                    RED + (currentPlayer.equals(playerOne.getName()) ? playerOne.getPlayerDeck().size() : playerTwo.getPlayerDeck().size())
                     + RESET + " cards left and turned " + YELLOW + currentCard + RESET + "\n");
             displayDeck(currentPlayer.equals(playerOne.getName()) ? playerOne.getUsedCards() : playerTwo.getUsedCards());
 
             // CHECK IF DECK IS EMPTY
-            if (playerOne.getPlayerDeck().size() == 0 && playerOne.getUsedCards().size() > 2) {
-                playerOne.setPlayerDeck(playerOne.getUsedCards());
-                playerOne.setUsedCards(new ArrayList<>());
-                System.out.println("\n\n----------------------------------------------------      " + RED + playerOne.getName() + " has no cards left and changed the piles" + RESET + "     ----------------------------------------------------");
-            }
-            if (playerTwo.getPlayerDeck().size() == 0 && playerTwo.getUsedCards().size() > 2) {
-                playerTwo.setPlayerDeck(playerTwo.getUsedCards());
-                playerTwo.setUsedCards(new ArrayList<>());
-                System.out.println("\n\n----------------------------------------------------      " + RED + playerTwo.getName() + " has no cards left and changed the piles" + RESET + "     ----------------------------------------------------");
-            }
+            checkIfDeckIsEmpty(playerOne);
+            checkIfDeckIsEmpty(playerTwo);
 
             // CHECK FOR GAME WIN
             checkGameResult();
@@ -63,8 +53,8 @@ public class Snap extends CardGame {
         }
     }
 
-    private void nameCheck(){
-        while(playerOne.getName().equals(playerTwo.getName())) {
+    private void nameCheck() {
+        while (playerOne.getName().equals(playerTwo.getName())) {
             System.out.println("Names cannot be the same, please choose another name");
             System.out.print("      -->  Insert Second Player's name: ");
             playerTwo.setName(scanner.nextLine());
@@ -94,7 +84,6 @@ public class Snap extends CardGame {
                 playerOne.getPlayerDeck().addAll(playerOne.getUsedCards());
                 playerOne.setUsedCards(new ArrayList<>());
                 playerTwo.setUsedCards(new ArrayList<>());
-
             }
             if (currentPlayer.equals(playerTwo.getName())) {
                 playerTwo.getPlayerDeck().addAll(playerOne.getUsedCards());
@@ -109,8 +98,16 @@ public class Snap extends CardGame {
     private void checkGameResult() {
         if (playerOne.getPlayerDeck().size() == 0 || playerTwo.getPlayerDeck().size() == 0) {
             changePlayer();
-            System.out.println(RED +"\n\n\n                                           " + currentPlayer.toUpperCase().replace(" ", "  ").replace("", " ") + "   W I N S   T H E   S N A P   G A M E" + RESET);
+            System.out.println(RED + "\n\n\n                                           " + currentPlayer.toUpperCase().replace(" ", "  ").replace("", " ") + "   W I N S   T H E   S N A P   G A M E" + RESET);
             active = false;
+        }
+    }
+
+    private void checkIfDeckIsEmpty(Player player) {
+        if (player.getPlayerDeck().size() == 0 && player.getUsedCards().size() > 2) {
+            player.setPlayerDeck(player.getUsedCards());
+            player.setUsedCards(new ArrayList<>());
+            display.cardsReusedMessage(player.getName());
         }
     }
 }

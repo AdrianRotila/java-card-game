@@ -8,7 +8,15 @@ public class Display {
         System.out.println("--------------------------------------------------------------         S N A P         --------------------------------------------------------------\n\n");
     }
 
-    public void winMessage(String name) {
-        System.out.println("\n----------------------------------------------------     " + RED + name + " SNAPS the cards" + RESET + "      ----------------------------------------------------");
+    public void winMessage(String text) {
+        System.out.println("\n----------------------------------------------------     " + RED + text + " SNAPS the cards" + RESET + "      ----------------------------------------------------");
+    }
+
+    public void cardsReusedMessage(String text) {
+        System.out.println("\n\n----------------------------------------------------      " + RED + text + " has no cards left and changed the piles" + RESET + "     ----------------------------------------------------");
+    }
+
+    public void pressEnterMessage(String text) {
+        System.out.print("\n-----------------------------------------------------    " + RED + text + " press ENTER to start the game!" + RESET + "   -----------------------------------------------------\n");
     }
 }
